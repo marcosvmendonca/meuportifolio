@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Serif+Display&display=swap');
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5; /* Fundo cinza bem claro */
+    color: #333; /* Cor do texto */
+}
+
+/* Estilo do cabeçalho */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Estilo do logo */
+.logo {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.menu-left, .menu-right {
+    display: flex;
+    align-items: center;
+}
+
+.menu-center {
+    flex-grow: 1; /* Permite que o menu central ocupe o espaço restante */
+    display: flex; /* Para centralizar o conteúdo do centro */
+    justify-content: center; /* Centraliza horizontalmente o conteúdo do centro */
+    align-items: center;
+    flex-direction: column; /* Organiza logo e links em coluna */
+}
+.menu-center a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.menu-center a:hover {
+    color: #000;
+}
+
+.menu-right a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Estilo da galeria */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px; /* Aumenta o espaçamento entre as fotos para um visual mais limpo */
+    padding: 0 15px 15px 15px; /* Remove o padding superior e deixa um pequeno espaçamento nas laterais e embaixo */
+    max-width: 1200px; /* Centraliza a galeria em telas grandes */
+    margin: 0 auto;
+}
+
+.gallery-item img {
+    width: 100%; /* Garante que a imagem preencha a coluna */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Remove espaços extras abaixo da imagem */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.03);
+}
+
+/* Estilo dos ícones */
+.menu-left a {
+    color: #555;
+    font-size: 20px;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.menu-left a:hover {
+    color: #000;
+}
+
+/* Estilo do container do Lightbox */
+.lightbox-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo do botão de fechar */
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 40px;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Estilo do carrossel principal do Flickity */
+.main-carousel {
+    width: 100%;
+    height: 100vh; /* Garante que o carrossel ocupe a altura total da tela */
+    overflow: hidden; /* Evita barras de rolagem desnecessárias */
+}
+
+/* Estilo das células do carrossel */
+.carousel-cell {
+    width: 100%;
+    height: 100vh; /* Garante que a célula ocupe a altura total da tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo da imagem dentro da célula do carrossel */
+.carousel-cell img {
+    max-width: 90% !important; /* Limita a largura da imagem */
+    max-height: 90vh !important; /* Limita a altura da imagem para caber na tela */
+    object-fit: contain; /* Garante que a imagem se ajuste sem cortar ou distorcer */
+}
+
+/* Estilo das setas de navegação do Flickity */
+.flickity-button {
+    background: rgba(0,0,0,0.2) !important;
+}
+
+.flickity-button:hover {
+    background: rgba(0,0,0,0.5) !important;
+}
+
+.flickity-prev-next-button .flickity-button-icon {
+    fill: #000;
+}
+/* --- Estilos do Menu Hambúrguer (desktop) --- */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+}
+
+.hamburger .bar1, .bar2, .bar3 {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+    transition: transform 0.3s ease-in-out;
+}
+/* --- Estilos do Menu Hambúrguer (mobile) --- */
+.mobile-nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 80px; /* Posição inicial do menu */
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 99;
+    padding: 20px;
+    text-align: center;
+    /* Animação com Transform */
+    transform: translateY(-100%) scaleY(0); /* Esconde o menu e o colapsa verticalmente */
+    transform-origin: top; /* Garante que a animação comece de cima */
+    transition: transform 0.5s ease-in-out;
+    opacity: 0;
+}
+
+.mobile-nav.active {
+    transform: translateY(0) scaleY(1); /* Desce o menu e o mostra */
+    opacity: 1;
+}
+
+.mobile-nav a {
+    text-decoration: none;
+    color: #555;
+    font-size: 16px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.mobile-nav a:hover {
+    color: #000;
+}
+
+.login-mobile {
+    display: none;
+}
+
+.social-icons-mobile {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Ajustes para 3 colunas em telas maiores (desktops) */
+@media (min-width: 992px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
+/* Ajustes para telas menores que 768px (tablets e celulares) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: row;
+        text-align: left;
+        padding: 20px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* O layout da galeria para mobile */
+    .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        padding: 20px;
+        gap: 15px;
+    }
+
+    /* Ajustes dos menus */
+    .menu-left {
+        order: 1; /* A logo irá para a esquerda */
+    }
+
+    .menu-right {
+        order: 2; /* O botão hambúrguer irá para a direita */
+    }
+
+    .links-menu,
+    .login-desktop,
+    .social-desktop {
+        display: none; /* Esconde todos os menus de desktop */
+    }
+
+    .hamburger {
+        display: block; /* Mostra o ícone do hambúrguer */
+    }
+
+    .mobile-nav.active {
+        display: flex; /* Mostra o menu quando ele tiver a classe 'active' */
+    }
+
+    .login-mobile,
+    .social-icons-mobile {
+        display: flex; /* Mostra o login e ícones sociais no menu mobile */
+        gap: 15px;
+        margin-top: 10px;
+    }
+    .mobile-nav {
+        top: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centraliza verticalmente o conteúdo */
+        align-items: center; /* Centraliza horizontalmente o conteúdo */
+    }
+
+    .social-icons-mobile {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+}
+
+.change .bar1 {
+  transform: translate(0, 8px) rotate(-45deg);
+}
+
+.change .bar2 {opacity: 0;
+}
+
+.change .bar3 {
+  transform: translate(0, -8px) rotate(45deg);
+}
+
+/* --- Animação de Carregamento (fade-in) --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Aplica a animação aos elementos do menu */
+.logo {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.menu-left a {
+    animation: fadeIn 0.8s ease-out;
+    animation-delay: 0.2s; /* Atraso para a animação começar depois da logo */
+}
+
+.links-menu a {
+    animation: fadeIn 0.8s ease-out forwards; /* Adicionado 'forwards' */
+    opacity: 0; /* Começa com opacidade 0 para a animação funcionar */
+}
+
+.links-menu a:nth-child(1) {
+    animation-delay: 0.4s;
+}
+
+.links-menu a:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.links-menu a:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+.login-desktop {
+    animation: fadeIn 0.8s ease-out;
+    animation-delay: 1s; /* Atraso final para o login */
+}

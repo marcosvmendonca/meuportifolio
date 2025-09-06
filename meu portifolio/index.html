@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>marcos mendonca - Fotografia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <div class="menu-left">
+        <a href="URL_DO_SEU_INSTAGRAM" target="_blank" class="social-desktop"><i class="fab fa-instagram"></i></a>
+        <a href="URL_DO_SEU_WHATSAPP" target="_blank" class="social-desktop"><i class="fab fa-whatsapp"></i></a>
+        <a href="URL_DO_SEU_YOUTUBE" target="_blank" class="social-desktop"><i class="fab fa-youtube"></i></a>
+    </div>
+
+    <div class="menu-center">
+        <div class="logo">
+            <img src="logo/logo.svg" alt="">
+        </div>
+        <nav class="links-menu">
+            <a href="#">presets</a>
+            <a href="#">orçamentos</a>
+            <a href="#">contato</a>
+        </nav>
+    </div>
+
+    <div class="menu-right">
+        <a href="#" class="login-desktop">login</a>
+        <button class="hamburger" onclick="myFunction(this)" aria-label="Abrir menu">
+            <span class="bar1"></span>
+            <span class="bar2"></span>
+            <span class="bar3"></span>
+        </button>
+    </div>
+</header>
+
+<nav class="mobile-nav">
+    <a href="#">presets</a>
+    <a href="#">orçamentos</a>
+    <a href="#">contato</a>
+    <a href="#" class="login-mobile">login</a>
+    <div class="social-icons-mobile">
+        <a href="URL_DO_SEU_INSTAGRAM" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="URL_DO_SEU_WHATSAPP" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="URL_DO_SEU_YOUTUBE" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+</nav>
+    <main>
+        <section class="gallery">
+            <div class="gallery-item">
+                <img src="imagens/img1.jpg" alt="Descrição da foto" data-aos="fade-up">
+            </div>
+            <div class="gallery-item">
+                <img src="imagens/img2.jpg" alt="Descrição da foto" data-aos="fade-up">
+            </div>
+            <div class="gallery-item">
+                <img src="imagens/img3.jpg" alt="Descrição da foto" data-aos="fade-up">
+            </div>
+            <div class="gallery-item">
+                <img src="imagens/img4.jpg" alt="Descrição da foto" data-aos="fade-up">
+            </div>
+        </section>
+    </main>
+
+    <div class="lightbox-container" style="display: none;">
+        <button class="close-lightbox">&times;</button>
+        <div class="main-carousel">
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.mobile-nav');
+        const navLinks = document.querySelectorAll('.mobile-nav a');
+
+        // Abre e fecha o menu ao clicar no botão hambúrguer
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Fecha o menu ao clicar em qualquer link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+    <script>
+            function myFunction(x) {
+            x.classList.toggle("change");
+            }
+            </script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item img');
+            const lightboxContainer = document.querySelector('.lightbox-container');
+            const mainCarousel = document.querySelector('.main-carousel');
+            const closeButton = document.querySelector('.close-lightbox');
+
+            // Cria o carrossel com todas as imagens da galeria
+            galleryItems.forEach(img => {
+                const carouselCell = document.createElement('div');
+                carouselCell.classList.add('carousel-cell');
+                const newImg = document.createElement('img');
+                newImg.src = img.src;
+                newImg.alt = img.alt;
+                carouselCell.appendChild(newImg);
+                mainCarousel.appendChild(carouselCell);
+            });
+
+            // Inicializa o Flickity após o carrossel ser preenchido
+            const flkty = new Flickity(mainCarousel, {
+                wrapAround: true,
+                pageDots: false,
+                prevNextButtons: true
+            });
+
+            // Abre o lightbox ao clicar em uma imagem da galeria
+            galleryItems.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    lightboxContainer.style.display = 'flex';
+                    flkty.select(index, false, true); // Mostra a imagem clicada
+                    flkty.resize(); // Força o Flickity a recalcular
+                });
+            });
+
+            // Fecha o lightbox ao clicar no botão de fechar
+            closeButton.addEventListener('click', () => {
+                lightboxContainer.style.display = 'none';
+            });
+
+            // Fecha o lightbox ao clicar fora da imagem
+            lightboxContainer.addEventListener('click', (e) => {
+                if (e.target === lightboxContainer) {
+                    lightboxContainer.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
